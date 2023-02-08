@@ -14,7 +14,7 @@ const (
 
 func main() {
 	// Initialize Database
-	database.Connect("root:password@tcp(localhost:3306)/hackathon_db?parseTime=true")
+	database.Connect("root:password@tcp(mysql:3306)/hackathon_db?parseTime=true")
 	database.Migrate()
 
 	// Initialize Router
@@ -39,6 +39,6 @@ func initRouter() *gin.Engine {
 		}
 	}
 
-	router.Static("/public", "./hackathon/tmp")
+	router.Static("/public", controllers.PathSaveImage)
 	return router
 }

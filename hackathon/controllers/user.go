@@ -22,7 +22,7 @@ var (
 		"image/webp": struct{}{},
 	}
 
-	pathSaveImage = "hackathon/tmp"
+	PathSaveImage = "./hackathon/tmp"
 )
 
 func RegisterUser(context *gin.Context) {
@@ -115,7 +115,7 @@ func UploadFile(context *gin.Context) {
 	}
 
 	newFileName := utils.AddPrefixFileName(filename)
-	if err := context.SaveUploadedFile(file, fmt.Sprintf("%s/%s", pathSaveImage, newFileName)); err != nil {
+	if err := context.SaveUploadedFile(file, fmt.Sprintf("%s/%s", PathSaveImage, newFileName)); err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": fmt.Errorf("upload file err: %s", err.Error())})
 		return
 	}
@@ -134,7 +134,7 @@ func UploadFile(context *gin.Context) {
 		return
 	}
 
-	context.JSON(http.StatusOK, gin.H{"message": "Successfully!"})
+	context.JSON(http.StatusOK, gin.H{"message": "Successfully!", "filename": newFileName})
 }
 
 func getMetaHttpRequest(ctx *gin.Context) string {
